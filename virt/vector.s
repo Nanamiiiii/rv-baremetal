@@ -1,4 +1,6 @@
 # macros
+.equ MAX_HARTS, 4
+.equ STACK_SIZE, 1024
 .equ REGBYTES, 8
 .equ REG_NUM, 16
 .equ CTX_SIZE, (REGBYTES * REG_NUM)
@@ -52,8 +54,6 @@
     lxsp x28, 12
     lxsp x29, 13
     lxsp x30, 14
-
-    # Restore sp
     addi sp, sp, CTX_SIZE
 
     # Return
@@ -234,3 +234,10 @@ trap_irq15:
 
 trap_empty:
     nop
+
+
+    .bss
+    .align 4
+    .global stacks
+stacks:
+    .skip STACK_SIZE * MAX_HARTS

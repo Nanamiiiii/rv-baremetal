@@ -3,7 +3,6 @@
 /*
     TODO: 
         impl-> board resetting function
-        impl-> board
 */
 
 extern void trap_entry(void);
@@ -22,8 +21,32 @@ extern void (* const IV[])(void);
 
 extern void main(void);
 void __attribute__((naked,section(".init"))) _reset(void) {
-    /* unimpl */
+    register uint32_t *src, *dst;
+    // set gp, sp
+    asm volatile("la gp, _global_pointer");
+    asm volatile("la sp, _end_stack");
+
+    // setup vectored interrupt
+    asm volatile("csrw mtvec, %0":: "r"((uint8_t *) (&_start_vector) + 1));
+
+    /* TODO: setup sp for each hart */
+
+    // src = (uint32_t *) &_stored_data;
+    dst = (uint32_t *) &_start_bss;
+    while (dst < (uint32_t *) &_end_bss) {
+        *dst = 0U;
+        dst++;
+    } 
+
+    while(1);
 }
+
+/*
+void __attribute__((naked,section(".init"))) park(void) {
+    asm volatile("wfi");
+    asm volatile("j park");
+}
+*/
 
 /* For trap handler */
 static uint32_t synctrap_cause = 0;
