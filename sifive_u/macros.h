@@ -1,0 +1,1 @@
+#define RAMFUNCTION __attribute__((used,section(".ramcode")))
