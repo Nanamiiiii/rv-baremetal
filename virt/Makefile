@@ -4,7 +4,7 @@ LD				:= $(CROSS_COMPILE)gcc
 AS				:= $(CROSS_COMPILE)gcc
 OBJCOPY			:= $(CROSS_COMPILE)objcopy
 CFLAGS			:= -mcmodel=medany -march=rv64imac -mabi=lp64 -g -ggdb -Wall -Wno-main -Wstack-usage=200 -ffreestanding -Wno-unused -nostdlib -nostartfiles -fno-builtin-printf -ffunction-sections -fdata-sections
-LSCRIPT			:= target.ld
+LSCRIPT			:= virt.ld
 LDFLAGS         := -T $(LSCRIPT) -Wl,--gc-sections -Wl,-Map=image.map -nostdlib -mcmodel=medany -march=rv64imac -mabi=lp64
 ASFLAGS			:= $(CFLAGS)
 

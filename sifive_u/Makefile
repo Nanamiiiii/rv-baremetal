@@ -4,11 +4,11 @@ LD				:= $(CROSS_COMPILE)gcc
 AS				:= $(CROSS_COMPILE)gcc
 OBJCOPY			:= $(CROSS_COMPILE)objcopy
 CFLAGS			:= -Os -mcmodel=medany -march=rv64imac -mabi=lp64 -g -ggdb -Wall -Wno-main -Wstack-usage=3896 -ffreestanding -Wno-unused -nostdlib -nostartfiles -fno-builtin-printf -ffunction-sections -fdata-sections
-LSCRIPT			:= target.ld
+LSCRIPT			:= sifive_u.ld
 LDFLAGS         := -T $(LSCRIPT) -Wl,--gc-sections -Wl,-Map=image.map -nostdlib -mcmodel=medany -march=rv64imac -mabi=lp64
 ASFLAGS			:= $(CFLAGS)
 
-OBJS			:= bootup.o vector.o main.o
+OBJS			:= rv64_sifive_u.o trap.o reboot.o drivers.o main.o
 
 .PHONY: all
 all: image.bin

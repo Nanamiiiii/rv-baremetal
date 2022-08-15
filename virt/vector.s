@@ -1,5 +1,5 @@
 # macros
-.equ MAX_HARTS, 4
+.equ MAX_HARTS, 8
 .equ STACK_SIZE, 1024
 .equ REGBYTES, 8
 .equ REG_NUM, 16

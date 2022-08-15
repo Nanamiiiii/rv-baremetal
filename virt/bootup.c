@@ -5,9 +5,6 @@
         impl-> board resetting function
 */
 
-extern void trap_entry(void);
-extern void trap_exit(void);
-
 extern uint32_t  _start_vector;
 extern uint32_t  _stored_data;
 extern uint32_t  _start_data;

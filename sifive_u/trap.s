@@ -93,41 +93,39 @@
     mret
 .endm
 
-# isr vector
-.section .isr_vector
-.align 2
+# trap handler
+    .section .trap_handler
+    .align 2
 
-.global trap_start
+    .global trap_start
 trap_start:
     trap_entry
-
     csrr a0, mcause
     csrr a1, mepc
     csrr a2, mtval
     mv a3, sp
     jal handle_trap
     csrw mepc, a0
-
     trap_exit
 
-
+# text section
     .text
+
     .global hart_wfi_loop
 hart_wfi_loop:
     wfi
-
     csrr t0, mip
     andi t0, t0, MIE_MSIE
     beqz t0, hart_wfi_loop
-    
     mv a0, tp
     jal handle_ipi
-
     j hart_wfi_loop
 
 
+# bss section
     .bss
     .align 4
+
     .global stacks
 stacks:
     .skip STACK_SIZE * MAX_HARTS

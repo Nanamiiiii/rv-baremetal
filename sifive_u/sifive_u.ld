@@ -16,7 +16,7 @@ SECTIONS
         KEEP(*(.init))
         . = ORIGIN(FLASH) + 0x200;
         _start_vector = .;
-        KEEP(*(.isr_vector))
+        KEEP(*(.trap_handler))
         *(.text .text.*)
         *(.rodata .rodata.*)
         *(.srodata .srodata.*)
@@ -30,7 +30,7 @@ SECTIONS
     {
         . = ALIGN(4096);
         _start_data = .;
-        KEEP(*(.ramcode*))
+        KEEP(*(.ram*))
         . = ALIGN(4);
         *(.data .data.*)
         . = ALIGN(4);
